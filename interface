@@ -1,0 +1,189 @@
+from tkinter import *
+from tkinter import ttk
+import datetime as dt
+
+estoque = []
+numestoque = []
+opcao = 0
+
+
+def opcao():
+
+     estoque = []
+     numestoque = []
+
+     insira = str(input(" Insira uma bebida:  "))
+     qtd = int(input(" Insira a quantidade: "))
+     estoque.append(insira)
+     numestoque.append(qtd)
+     print("Bebida inserida com sucesso! \n")
+     print(estoque)
+     print(numestoque)
+
+
+def opcao2():
+
+     consultar = input("Digite a bebida que deseja consultar: ")
+     if consultar in estoque:
+         print(" Essa bebida está na lista e possui {}.".format(numestoque))
+
+     else:
+         print(" A bebida não está na lista. Deseja adicionar? ")
+         select = int(input(" Digite 1 para sim e 2 para não: "))
+         if select == 1:
+             consulta = int(input("Digite a quantidade: "))
+             numestoque.append(consulta)
+             estoque.append(consultar)
+             print("Bebida Adcionada!")
+             print(estoque)
+             print(numestoque)
+         else:
+             print("voltar para o menu.")
+
+
+def opcao3():
+
+     print(estoque)
+     print(numestoque)
+     alterar = input("Digite por qual bebida deseja substituir: ")
+     count = int(input("Selecione a posição de troca da bebida.(OBS:A contagem começa do zero!): "))
+     estoque[count] = alterar
+     print(estoque)
+     print(numestoque)
+     qtd_alterar = int(input("Digite a quantidade de bebida que deseja alterar: "))
+     count = int(input("Selecione a posição de troca da bebida.(OBS:A contagem começa do zero!): "))
+     numestoque[count] = qtd_alterar
+     print(estoque)
+     print(numestoque)
+
+
+def opcao4():
+    print(estoque)
+    print(numestoque)
+    remover = input("Digite a bebida à ser removida: ")
+    if remover in estoque:
+        estoque.remove(remover)
+        print(estoque)
+        print(numestoque)
+        delete = int(input("Digite a quantidade da bebida à ser removida: "))
+    if delete in numestoque:
+        numestoque.remove(delete)
+        print(estoque)
+        print(numestoque)
+
+
+def opcao5():
+
+    arquivo = open("estoque.txt", "a")
+    arquivo.writelines(line + '\n' for line in estoque)
+    print("Arquivo salvo!")
+
+def opcao6():
+
+    arquivo = open("estoque.txt", "r")
+    estoque = arquivo.readlines()
+    numestoque = arquivo.readlines()
+    print(estoque)
+    print(numestoque)
+    print("Arquivo importado!")
+
+
+janela = Tk()
+
+janela.title("Controle de Estoque")
+janela.geometry("500x500")
+
+#INSERIR
+
+label_desc = Label(janela, text=" Bem vindo(a) ao Sistema de Estoque: ")
+label_desc.grid(column=0, row=1, padx=10,pady=10, sticky='nswe', columnspan=4)
+
+label_desc = Label(janela, text="1- Inserir produto ")
+label_desc.grid(column=0, row=3, padx=10,pady=10, sticky='nswe', columnspan=2)
+
+label_insira = Label(text="Digite o nome da bebida")
+label_insira.grid(column=0, row=6, padx=10,pady=10, sticky='nswe', columnspan=2)
+
+entry_desc = Entry()
+entry_desc.grid(column=0, row=7, padx=10,pady=10, sticky='nswe', columnspan=2)
+
+label_qtd = Label(text="Digite a quantidade bebida")
+label_qtd.grid(column=0, row=8, padx=10,pady=10, sticky='nswe', columnspan=2)
+
+entry_qtd = Entry()
+entry_qtd.grid(column=0, row=9, padx=10,pady=10, sticky='nswe', columnspan=4)
+
+botao = Button(janela, text=" Enter", command=opcao)
+botao.grid(column=0, row=10,columnspan=4)
+
+#OBS: É PRECISO APAGAR E INSERIR NOVAMENTE PARA APARECER A LISTA NO TERMINAL.
+
+print(estoque)
+
+#CONSULTAR
+
+label_cons = Label(janela, text="2-Consultar produto ")
+label_cons.grid(column=0, row=24, padx=10, pady=10, sticky='nswe', columnspan=4)
+
+label_cons = Label(text="Digite o nome da bebida que deseja consultar")
+label_cons.grid(column=0, row=25, padx=10, pady=10, sticky='nswe', columnspan=2)
+
+entry_cons = Entry()
+entry_cons.grid(column=0, row=28, padx=10, pady=10, sticky='nswe', columnspan=4)
+
+botao = Button(janela, text=" Enter", command=opcao2)
+botao.grid(column=0, row=30, columnspan=4)
+
+#ALTERAR PRODUTO
+
+label_alt = Label(janela, text="3-Alterar produto ")
+label_alt.grid(column=0, row=34, padx=10, pady=10, sticky='nswe', columnspan=4)
+
+label_alt = Label(text="Digite o nome da bebida que deseja alterar")
+label_alt.grid(column=0, row=35, padx=10, pady=10, sticky='nswe', columnspan=2)
+
+entry_alt = Entry()
+entry_alt.grid(column=0, row=38, padx=10, pady=10, sticky='nswe', columnspan=4)
+
+botao = Button(janela, text=" Enter", command=opcao3)
+botao.grid(column=0, row=40, columnspan=4)
+
+#REMOVER PRODUTO
+
+label_remover = Label(janela, text="4- Remover produto ")
+label_remover.grid(column=0, row=44, padx=10, pady=10, sticky='nswe', columnspan=4)
+
+label_remover = Label(text="Digite o nome da bebida que deseja remover")
+label_remover.grid(column=0, row=45, padx=10, pady=10, sticky='nswe', columnspan=2)
+
+entry_remover = Entry()
+entry_remover.grid(column=0, row=48, padx=10, pady=10, sticky='nswe', columnspan=4)
+
+botao = Button(janela, text=" Enter", command=opcao4)
+botao.grid(column=0, row=50, columnspan=4)
+
+
+#GRAVAR ARQUIVO
+
+label_alt = Label(janela, text=" 5-Gravar arquivo ")
+label_alt.grid(column=6, row=1, padx=10, pady=10, sticky='nswe', columnspan=4)
+
+label_alt = Label(text=" Para gravar arquivo aperte Next")
+label_alt.grid(column=6, row=2, padx=10, pady=10, sticky='nswe', columnspan=2)
+
+botao = Button(janela, text="Next", command=opcao5)
+botao.grid(column=6, row=3, columnspan=4)
+
+#IMPORTAR ARQUIVO
+
+label_alt = Label(janela, text=" 6- Importar arquivo ")
+label_alt.grid(column=6, row=6, padx=10, pady=10, sticky='nswe', columnspan=4)
+
+label_alt = Label(text=" Para importar arquivo aperte Next")
+label_alt.grid(column=6, row=7, padx=10, pady=10, sticky='nswe', columnspan=2)
+
+botao = Button(janela, text="Next", command=opcao6)
+botao.grid(column=6, row=8, columnspan=5)
+
+
+janela.mainloop()
